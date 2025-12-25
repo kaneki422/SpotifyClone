@@ -1,34 +1,256 @@
-body{
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #121212;
-    color: #fff;
+/* Reset & Body */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #121212;
+  color: #fff;
 }
 
-header{
-    padding: 20px;
-    background-color: #1db954;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* Container & Layout */
+.container {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
 }
 
-header h1{
-    margin: 0;
+.sidebar {
+  width: 240px;
+  background: #000;
+  flex-shrink: 0;
+  padding: 20px;
 }
 
-header nav a{
-    margin-left: 15px;
-    color: white;
-    text-decoration: none;
+.sidebar h2 {
+  color: #1db954;
+  margin-bottom: 20px;
 }
 
-.playlist{
-    padding: 20px;
+.sidebar nav ul {
+  list-style: none;
+  padding: 0;
 }
 
-footer{
-    padding: 10px;
-    text-align: center;
-    background-color: #1db954;
+.sidebar nav li {
+  margin: 15px 0;
+}
+
+.sidebar nav a {
+  color: #b3b3b3;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s;
+}
+
+.sidebar nav a:hover {
+  color: #1db954;
+}
+
+.main-content {
+  flex: 1;
+  padding: 24px;
+  overflow-y: auto;
+}
+
+/* Songs Grid / Cards */
+.songs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.song-card {
+  width: 200px;
+  background: #181818;
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.song-card:hover {
+  background: #242424;
+}
+
+.song-card img {
+  width: 100%;
+  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.song-info h3 {
+  margin: 0;
+  font-size: 1em;
+}
+
+.song-info p {
+  margin: 5px 0;
+  font-size: 0.9em;
+  color: #b3b3b3;
+}
+
+/* Overlay Play Button */
+.overlay-play, .card-play {
+  background-color: #1db954;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: bold;
+}
+
+.overlay-play {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  color: black;
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: auto;
+}
+
+.song-card:hover .overlay-play {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlay-play:hover, .play-btn:hover, .player-center button:hover {
+  transform: scale(1.1);
+}
+
+.card-play {
+  position: relative;
+  z-index: 10;
+  padding: 8px 14px;
+}
+
+/* Player Buttons */
+.play-btn {
+  background: #1db954;
+  color: #fff;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Bottom Player */
+.bottom-player {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: #181818;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  border-top: 1px solid #282828;
+  z-index: 1000;
+}
+
+.player-left h4, .player-left p {
+  margin: 0;
+  font-size: 14px;
+  color: #b3b3b3;
+}
+
+.player-left p {
+  font-size: 12px;
+}
+
+.player-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.player-center button {
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  background: #1db954;
+  border-radius: 50%;
+  color: #000;
+  cursor: pointer;
+}
+
+/* Progress Bar */
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 300px;
+}
+
+#progress {
+  flex: 1;
+  cursor: pointer;
+}
+
+.progress-container span {
+  font-size: 12px;
+  color: #b3b3b3;
+}
+
+/* Now Playing Screen */
+.now-playing {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #1a1a1a, #000);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  z-index: 2000;
+}
+
+.hidden { display: none; }
+
+.np-album img {
+  width: 300px;
+  height: 300px;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.np-info {
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+}
+
+#np-progress {
+  width: 100%;
+  margin: 15px 0;
+}
+
+.np-controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.np-controls button {
+  background: none;
+  border: none;
+  font-size: 22px;
+  color: #fff;
+  cursor: pointer;
+}
+
+#play {
+  width: 60px;
+  height: 60px;
+  font-size: 24px;
+  background: #1db954;
+  color: #000;
+  border-radius: 50%;
 }

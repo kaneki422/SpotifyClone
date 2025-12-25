@@ -1,32 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SpotifyClone</title>
-    <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Clone</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
-<body>
-    <header>
-        <h1>SpotifyClone</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Search</a>
-            <a href="#">Your Libary</a>
-        </nav>
-    </header>
-    <main>
-        <section class="playlist">
-            <h2>Featured Playlist</h2>
-            <div class="songs">
-                <!-- all songs will goes here -->
-            </div>
-        </section>
-    </main>
 
-    <footer>
-        <p>SpotifyClone -- Educational Project Only...</p>
-    </footer>
-    <script src="js/script.js"></script>
+<body>
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <h2>Spotify Clone</h2>
+      <nav>
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li><a href="#">Search</a></li>
+          <li><a href="#">Your Library</a></li>
+          <li><a href="#">Liked Songs</a></li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main-content">
+
+      <header class="top-nav">
+        <h1>Featured Playlists</h1>
+      </header>
+
+      <!-- SONG GRID -->
+      <section class="playlist">
+        <div class="songs">
+
+          <!-- SONG 1 -->
+          <div class="song-card">
+            <img src="assets/images/album1.jpg" />
+            <h3>Song 1</h3>
+            <p>Artist</p>
+            <button class="card-play">▶ Play</button>
+            <audio src="assets/songs/song1.mp3"></audio>
+          </div>
+
+          <!-- SONG 2 -->
+          <div class="song-card">
+            <img src="assets/images/album2.jpg" />
+            <h3>Song 2</h3>
+            <p>Artist</p>
+            <button class="card-play">▶ Play</button>
+            <audio src="assets/songs/song2.mp3"></audio>
+          </div>
+
+          <!-- SONG 3 -->
+          <div class="song-card">
+            <img src="assets/images/album3.jpg" />
+            <h3>Song 3</h3>
+            <p>Artist 3</p>
+            <button class="card-play">▶ Play</button>
+            <audio src="assets/songs/song3.mp3"></audio>
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- NOW PLAYING (GLOBAL PLAYER) -->
+  <div class="now-playing hidden" id="nowPlaying">
+    <div class="np-album">
+      <img id="np-image" src="" />
+    </div>
+
+    <div class="np-info">
+      <h2 id="np-title">Song</h2>
+      <p id="np-artist">Artist</p>
+
+      <input type="range" id="np-progress" value="0" min="0" max="100" />
+
+      <div class="np-controls">
+        <button id="shuffle">🔀</button>
+        <button id="prev">⏮</button>
+        <button id="play">▶</button>
+        <button id="next">⏭</button>
+        <button id="repeat">🔁</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/script.js"></script>
 </body>
 </html>
