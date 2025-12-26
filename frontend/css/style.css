@@ -82,16 +82,10 @@ body {
   z-index: 1;
 }
 
-.song-info h3 {
+/* .song-info h4 {
   margin: 0;
   font-size: 1em;
-}
-
-.song-info p {
-  margin: 5px 0;
-  font-size: 0.9em;
-  color: #b3b3b3;
-}
+} */
 
 /* Overlay Play Button */
 .overlay-play, .card-play {
