@@ -2,7 +2,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: #121212;
+  background: black;
   color: #fff;
 }
 
@@ -14,15 +14,13 @@ body {
 }
 
 .sidebar {
-  width: 240px;
-  background: #000;
+  background-color: #181818;
+  margin-top: 70px;
+  margin-left: 10px;
+  width: 300px;
   flex-shrink: 0;
   padding: 20px;
-}
-
-.sidebar h2 {
-  color: #1db954;
-  margin-bottom: 20px;
+  border-radius: 7px;
 }
 
 .sidebar nav ul {
@@ -31,11 +29,11 @@ body {
 }
 
 .sidebar nav li {
-  margin: 15px 0;
+  margin: 5px 0;
 }
 
 .sidebar nav a {
-  color: #b3b3b3;
+  color: #ffffff;
   text-decoration: none;
   font-weight: bold;
   transition: color 0.2s;
@@ -46,7 +44,11 @@ body {
 }
 
 .main-content {
+  margin-top: 70px;
+  margin-left: 10px;
+  background-color: #181818;
   flex: 1;
+  border-radius: 7px;
   padding: 24px;
   overflow-y: auto;
 }
@@ -59,10 +61,11 @@ body {
 }
 
 .song-card {
-  width: 200px;
+  width: 150px;
+  height: 180px;
   background: #181818;
   border-radius: 12px;
-  padding: 16px;
+  padding: 10px;
   position: relative;
   transition: background 0.2s;
 }
@@ -73,6 +76,7 @@ body {
 
 .song-card img {
   width: 100%;
+  height: 80%;
   border-radius: 10px;
   position: relative;
   z-index: 1;
