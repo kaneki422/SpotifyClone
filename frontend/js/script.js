@@ -1,75 +1,115 @@
-console.log("Song cards found:", document.querySelectorAll(".song-card").length);
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.querySelectorAll(".card");
+  const playPauseBtn = document.getElementById("playPause");
+  const currentTimeEl = document.getElementById("currentTime");
+  const durationEl = document.getElementById("duration");
+  const playerImg = document.querySelector(".player-left img");
+  const playerTitle = document.querySelector(".player-left h4");
+  const progressContainer = document.querySelector(".progress-container");
+const progressBg = document.querySelector(".progress-bg");
+const progressFill = document.querySelector(".progress-fill");
+const progressThumb = document.querySelector(".progress-thumb");
 
+function updateProgressUI() {
+  if (!currentAudio || !currentAudio.duration) return;
 
-const cards = document.querySelectorAll(".song-card");
+  const percent =
+    (currentAudio.currentTime / currentAudio.duration) * 100;
 
-const nowPlaying = document.getElementById("nowPlaying");
-const npTitle = document.getElementById("np-title");
-const npArtist = document.getElementById("np-artist");
-const npImage = document.getElementById("np-image");
-const playBtn = document.getElementById("play");
-const progress = document.getElementById("np-progress");
+  progressFill.style.width = percent + "%";
+  progressThumb.style.left = percent + "%";
+}
 
-let currentIndex = null;
-let audios = [];
+// Update every frame
+setInterval(updateProgressUI, 300);
 
-cards.forEach((card, index) => {
-  const audio = card.querySelector("audio");
-  const title = card.querySelector("h3").textContent;
-  const artist = card.querySelector("p").textContent;
-  const image = card.querySelector("img").src;
-  const playCardBtn = card.querySelector(".card-play");
+// Click to seek
+progressContainer.addEventListener("click", (e) => {
+  if (!currentAudio) return;
 
-  audios.push({ audio, title, artist, image });
+  const rect = progressBg.getBoundingClientRect();
+  const clickX = e.clientX - rect.left;
+  const percent = clickX / rect.width;
 
-  playCardBtn.addEventListener("click", () => {
-  console.log("Clicked:", title);
-    currentIndex = index;
-    loadSong();
-    playSong();
-    nowPlaying.classList.remove("hidden");
-  });
+  currentAudio.currentTime = percent * currentAudio.duration;
 });
 
-function loadSong() {
-  audios.forEach(s => {
-    s.audio.pause();
-    s.audio.currentTime = 0;
+
+  let currentAudio = null;
+  let isPlaying = false;
+
+  // Format time (mm:ss)
+  function formatTime(time) {
+    const min = Math.floor(time / 60);
+    const sec = Math.floor(time % 60).toString().padStart(2, "0");
+    return `${min}:${sec}`;
+  }
+
+  // Stop currently playing audio
+  function stopCurrentAudio() {
+    if (currentAudio) {
+      currentAudio.pause();
+      currentAudio.currentTime = 0;
+    }
+  }
+
+  // Play selected card
+  function playCard(card) {
+    const audio = card.querySelector("audio");
+    const title = card.dataset.title;
+    const img = card.dataset.img;
+
+    if (currentAudio !== audio) {
+      stopCurrentAudio();
+      currentAudio = audio;
+    }
+
+    currentAudio.play();
+    isPlaying = true;
+    playPauseBtn.textContent = "⏸";
+
+    playerTitle.textContent = title;
+    playerImg.src = img;
+
+    // Update duration when metadata loads
+    currentAudio.onloadedmetadata = () => {
+      durationEl.textContent = formatTime(currentAudio.duration);
+    };
+  }
+
+  // Update progress bar
+  function updateProgress() {
+    if (!currentAudio || !currentAudio.duration) return;
+
+    const percent =
+      (currentAudio.currentTime / currentAudio.duration) * 100;
+    progressFill.style.width = percent + "%";
+    currentTimeEl.textContent = formatTime(currentAudio.currentTime);
+  }
+
+  // Card play buttons
+  cards.forEach((card) => {
+    const btn = card.querySelector(".play-btn");
+
+    btn.addEventListener("click", () => {
+      playCard(card);
+    });
   });
 
-  const song = audios[currentIndex];
-  npTitle.textContent = song.title;
-  npArtist.textContent = song.artist;
-  npImage.src = song.image;
-}
+  // Bottom play / pause
+  playPauseBtn.addEventListener("click", () => {
+    if (!currentAudio) return;
 
-function playSong() {
-  const song = audios[currentIndex];
-  song.audio.play();
-  playBtn.textContent = "❚❚";
-}
+    if (isPlaying) {
+      currentAudio.pause();
+      playPauseBtn.textContent = "▶";
+    } else {
+      currentAudio.play();
+      playPauseBtn.textContent = "⏸";
+    }
+    isPlaying = !isPlaying;
+  });
 
-function pauseSong() {
-  audios[currentIndex].audio.pause();
-  playBtn.textContent = "▶";
-}
-
-playBtn.addEventListener("click", () => {
-  const audio = audios[currentIndex].audio;
-  audio.paused ? playSong() : pauseSong();
-});
-
-// Progress bar
-setInterval(() => {
-  if (currentIndex === null) return;
-  const audio = audios[currentIndex].audio;
-  if (!audio.duration) return;
-
-  progress.value = (audio.currentTime / audio.duration) * 100;
-}, 300);
-
-progress.addEventListener("input", () => {
-  if (currentIndex === null) return;
-  const audio = audios[currentIndex].audio;
-  audio.currentTime = (progress.value / 100) * audio.duration;
+  // Progress update interval
+  setInterval(updateProgress, 500);
 });

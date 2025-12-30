@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,79 +9,96 @@
 </head>
 
 <body>
-  <div class="container">
+
+  <div class="app">
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-      <nav>
-        <ul>
-          <li><a href="#"><h3>Your Library</h3></a></li>
-          <li>Playlists</li>
-          <img src="#" alt="#">
-        </ul>
-      </nav>
+      <h2>Your Library</h2>
+      <ul>
+        <li>Playlists</li>
+        <li>Liked Songs</li>
+        <li>Albums</li>
+      </ul>
     </aside>
 
-    <!-- MAIN -->
-    <main class="main-content">
-
+    <!-- MAIN CONTENT -->
+    <main class="main">
       <h2>Recommended for you</h2>
 
-      <!-- SONG GRID -->
-      <section class="playlist">
-        <div class="songs">
+      <div class="cards">
 
-          <!-- SONG 1 -->
-          <div class="song-card">
-            <img src="assets/images/album1.jpg" />
-            <h4>Phonk</h4>
-            <button class="card-play">▶ Play</button>
-            <audio src="assets/songs/song1.mp3"></audio>
+        <div class="card" data-title="Phonk" data-img="assets/images/album1.jpg">
+          <div class="card-img">
+            <img src="assets/images/album1.jpg">
+            <button class="play-btn">▶</button>
           </div>
-
-          <!-- SONG 2 -->
-          <div class="song-card">
-            <img src="assets/images/album2.jpg" />
-            <h4>Phonk</h4>
-            <button class="card-play">▶ Play</button>
-            <audio src="assets/songs/song2.mp3"></audio>
-          </div>
-
-          <!-- SONG 3 -->
-          <div class="song-card">
-            <img src="assets/images/album3.jpg" />
-            <h4>Suzume</h4>
-            <button class="card-play">▶ Play</button>
-            <audio src="assets/songs/song3.mp3"></audio>
-          </div>
-
+          <h4>Phonk</h4>
+          <audio src="assets/songs/song1.mp3"></audio>
         </div>
-      </section>
+
+        <div class="card" data-title="Phonk" data-img="assets/images/album2.jpg">
+          <div class="card-img">
+            <img src="assets/images/album2.jpg">
+            <button class="play-btn">▶</button>
+          </div>
+          <h4>Phonk</h4>
+          <audio src="assets/songs/song2.mp3"></audio>
+        </div>
+
+        <div class="card" data-title="Suzume" data-img="assets/images/album3.jpg">
+          <div class="card-img">
+            <img src="assets/images/album3.jpg">
+            <button class="play-btn">▶</button>
+          </div>
+          <h4>Suzume</h4>
+          <audio src="assets/songs/song3.mp3"></audio>
+        </div>
+
+      </div>
     </main>
+
   </div>
 
-  <!-- NOW PLAYING (GLOBAL PLAYER) -->
-  <div class="now-playing hidden" id="nowPlaying">
-    <div class="np-album">
-      <img id="np-image" src="" />
-    </div>
-
-    <div class="np-info">
-      <h2 id="np-title">Song</h2>
-      <p id="np-artist">Artist</p>
-
-      <input type="range" id="np-progress" value="0" min="0" max="100" />
-
-      <div class="np-controls">
-        <button id="shuffle">🔀</button>
-        <button id="prev">⏮</button>
-        <button id="play">▶</button>
-        <button id="next">⏭</button>
-        <button id="repeat">🔁</button>
+  <!-- BOTTOM PLAYER -->
+  <div class="player">
+    <div class="player-left">
+      <img src="assets/images/album1.jpg">
+      <div>
+        <h4>Song</h4>
       </div>
     </div>
+
+    <div class="player-center">
+
+  <!-- LEFT: CONTROLS -->
+  <div class="controls">
+    <button id="shuffle">🔀</button>
+    <button id="prev">⏮</button>
+    <button id="playPause" class="big">▶</button>
+    <button id="next">⏭</button>
+    <button id="repeat">🔁</button>
   </div>
 
+  <!-- RIGHT: PROGRESS BAR -->
+  <div class="spotify-progress">
+    <span id="currentTime">0:00</span>
+
+    <div class="progress-container">
+      <div class="progress-bg">
+        <div class="progress-fill"></div>
+        <div class="progress-thumb"></div>
+      </div>
+    </div>
+
+    <span id="duration">0:00</span>
+  </div>
+
+</div>
+
+
+  </div>
   <script src="js/script.js"></script>
 </body>
+
 </html>
